@@ -28,7 +28,12 @@ describe('render', function() {
       var str = '<hr class=\'an "edge" case\' />';
       expect(htmlFunc(str)).to.equal('<hr class="an &quot;edge&quot; case">');
     });
-  });
+    it('should always escape < to &lt;', function() {
+      var myHtmlFunc = _.partial(html, {decodeEntities:false});
+      var str = 'hello < there åäöÅÄÖ\'';
+      expect(myHtmlFunc(str)).to.equal("hello &lt; there åäöÅÄÖ'");
+    });
+});
 
   // run html with default options
   describe('(html, {})', _.partial( testBody, _.partial(html, {}) ));

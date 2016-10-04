@@ -134,6 +134,8 @@ function renderText(elem, opts) {
   // if entities weren't decoded, no need to encode them back
   if (opts.decodeEntities && !(elem.parent && elem.parent.name in unencodedElements)) {
     data = entities.encodeXML(data);
+  } else if (!(elem.parent && elem.parent.name in unencodedElements)) {
+    data = data.replace(/</g, '&lt;')
   }
 
   return data;
